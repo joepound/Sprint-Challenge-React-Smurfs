@@ -73,7 +73,7 @@ class App extends Component {
     }
   };
 
-  handleChange = e => {
+  handleChange = (e, props) => {
     switch (e.currentTarget.name || e.currentTarget.id) {
       case "smurfSelect":
         this.setState({
@@ -81,7 +81,7 @@ class App extends Component {
             this.state.smurfs.find(
               smurf => smurf.id === e.currentTarget.value
             ) || ""
-        });
+        }, () => props.history.push(`/village/${this.state.selectedSmurf.id}`));
     }
   };
 

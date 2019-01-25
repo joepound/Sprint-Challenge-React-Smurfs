@@ -9,6 +9,8 @@ import StyleMixins from "../../StyleMixins.js";
 import SmurfInfo from "./SmurfInfo.js";
 
 const SmurfList = props => {
+  const routeProps = { ...props };
+
   const VillageContainer = styled.section`
     ${StyleMixins.makeFlex("column", null, "center")}
   `;
@@ -84,13 +86,10 @@ const SmurfList = props => {
           </label>
         )}
       </SmurfSelectArea>
-      {props.selectedSmurf && (
-        <SmurfInfo
-          {...props}
-          selectedSmurf={props.selectedSmurf}
-          handleClick={props.handleClick}
-        />
-      )}
+      <Route
+        path="/village/:id"
+        render={props => <SmurfInfo {...props} smurfs={routeProps.smurfs} handleClick={routeProps.handleClick} />}
+      />
     </VillageContainer>
   );
 };

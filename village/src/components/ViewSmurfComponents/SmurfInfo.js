@@ -6,6 +6,8 @@ import StyleVars from "../../StyleVars.js";
 import StyleMixins from "../../StyleMixins.js";
 
 const SmurfInfo = props => {
+  const selectedSmurf = props.smurfs.find(smurf => smurf.id === props.match.params.id)
+
   const InfoArea = styled.section`
     width: 87.5%;
     background-color: ${StyleVars.Colors.SmurfInfo.bgColor};
@@ -54,20 +56,20 @@ const SmurfInfo = props => {
 
   return (
     <InfoArea>
-      <InfoAreaHeading>{props.selectedSmurf.name}</InfoAreaHeading>
+      <InfoAreaHeading>{selectedSmurf && selectedSmurf.name}</InfoAreaHeading>
       <div>
         <InfoFieldHeading>Age: </InfoFieldHeading>
-        <span>{props.selectedSmurf.age}</span>
+        <span>{selectedSmurf && selectedSmurf.age}</span>
       </div>
       <div>
         <InfoFieldHeading>Height: </InfoFieldHeading>
-        <span>{props.selectedSmurf.height} centimeters</span>
+        <span>{selectedSmurf && selectedSmurf.height} centimeters</span>
       </div>
       <FormButtons>
         <button
           type="button"
           name="deleteSmurf"
-          data-smurf={props.selectedSmurf.id}
+          data-smurf={selectedSmurf && selectedSmurf.id}
           onClick={props.handleClick}
         >
           Delete
@@ -78,12 +80,14 @@ const SmurfInfo = props => {
 };
 
 SmurfInfo.propTypes = {
-  selectedSmurf: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
-    height: PropTypes.string.isRequired
-  }).isRequired,
+  smurfs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      height: PropTypes.string.isRequired
+    }).isRequired,
+  ).isRequired,
   handleClick: PropTypes.func.isRequired
 };
 
