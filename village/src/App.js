@@ -14,7 +14,8 @@ import SmurfList from "./components/ViewSmurfComponents/SmurfList.js";
 class App extends Component {
   state = {
     smurfs: [],
-    selectedSmurf: ""
+    selectedSmurf: "",
+    isUpdating: false
   };
 
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -116,6 +117,9 @@ class App extends Component {
               error
             });
           });
+      case "updateSmurf" :
+        
+        break;
     }
   };
 
@@ -156,6 +160,7 @@ class App extends Component {
                   selectedSmurf={this.state.selectedSmurf}
                   handleChange={this.handleChange}
                   handleClick={this.handleClick}
+                  isUpdating={this.state.isUpdating}
                 />
               )}
             />

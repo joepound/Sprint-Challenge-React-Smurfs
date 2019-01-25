@@ -5,10 +5,13 @@ import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
 import StyleMixins from "../../StyleMixins.js";
 
+import EditIcon from "./assets/edit-icon.png";
+
 const SmurfInfo = props => {
   const selectedSmurf = props.smurfs.find(smurf => smurf.id === props.match.params.id)
 
   const InfoArea = styled.section`
+    position: relative;
     width: 87.5%;
     background-color: ${StyleVars.Colors.SmurfInfo.bgColor};
     font-size: 1.6rem;
@@ -23,12 +26,21 @@ const SmurfInfo = props => {
     }
   `;
 
+  const InfoAreaUpdateIcon = styled.img`
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  `
+
   const InfoAreaHeading = styled.h3`
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: bold;
     color: ${StyleVars.Colors.SmurfInfo.Heading.fontColor};
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   `;
 
   const InfoFieldHeading = styled.span`
@@ -56,6 +68,7 @@ const SmurfInfo = props => {
 
   return (
     <InfoArea>
+      <InfoAreaUpdateIcon src={EditIcon} alt="Goto: edit mode" />
       <InfoAreaHeading>{selectedSmurf && selectedSmurf.name}</InfoAreaHeading>
       <div>
         <InfoFieldHeading>Age: </InfoFieldHeading>
