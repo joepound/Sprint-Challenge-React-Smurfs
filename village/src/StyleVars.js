@@ -2,7 +2,8 @@ const ColorNames = {
   smurfBlue: "#88CCFF",
   snowDrift: "#F7FAF7",
   wildSand: "#F4F4F4",
-  silver: "#c0c0c0"
+  silver: "#c0c0c0",
+  white: "#FFFFFF"
 };
 
 const StyleVars = {
@@ -30,6 +31,12 @@ const StyleVars = {
         bgColor: ColorNames.smurfBlue,
         fontColor: ColorNames.snowDrift,
         borderColor: ColorNames.silver
+      }
+    },
+    Village: {
+      Header: {
+        bgColor: ColorNames.white,
+        fontColor: ColorNames.smurfBlue
       }
     }
   }
