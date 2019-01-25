@@ -50,8 +50,8 @@ const NavBar = props => {
           </NavBarItem>
         </li>
         <li>
-          <NavBarItem exact to="/friends">
-            Smurf Village
+          <NavBarItem exact to="/village">
+            View Residents
           </NavBarItem>
         </li>
       </ul>

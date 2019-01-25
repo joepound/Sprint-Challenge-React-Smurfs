@@ -20,6 +20,12 @@ const StyleVars = {
       bgColor: ColorNames.wildSand
     },
     Form: {
+      Label: {
+        fontColor: ColorNames.smurfBlue
+      },
+      Input: {
+        fontColor: ColorNames.smurfBlue
+      },
       Button: {
         bgColor: ColorNames.smurfBlue,
         fontColor: ColorNames.snowDrift,

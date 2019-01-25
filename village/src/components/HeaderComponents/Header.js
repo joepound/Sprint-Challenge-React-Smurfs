@@ -32,7 +32,7 @@ const Header = props => {
     <Wrapper>
       <AppName>
         <NavLink exact to="/">
-          Friends
+          Smurf Village
         </NavLink>
       </AppName>
       <NavBar />

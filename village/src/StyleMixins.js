@@ -10,21 +10,41 @@ const StyleMixins = {
     color: ${color};
   `,
   FormInputs: {
-    makeFormTextField: () => `
+    makeFormLabel: fontColor => `
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: ${fontColor};
+      text-shadow: 1px 1px white;
+    `,
+    makeFormTextField: fontColor => `
       width: 100%;
+      font-weight: 600;
+      color: ${fontColor};
       padding: 10px 15px;
       border-top: none;
       border-right: none;
       border-left: none;
       margin: 5px auto;
+
+      &::placeholder {
+        font-weight: 600;
+        color: ${fontColor};
+      }
     `,
-    makeFormNumberField: () => `
+    makeFormNumberField: fontColor => `
       width: 20%;
+      font-weight: 600;
+      color: ${fontColor};
       padding: 10px 15px;
       border-top: none;
       border-right: none;
       border-left: none;
       margin: 5px 0 5px 20px;
+
+      &::placeholder {
+        font-weight: 600;
+        color: ${fontColor};
+      }
     `,
     makeFormButton: (bgColor, fontColor, borderColor) => `
       text-align: center;
@@ -33,7 +53,7 @@ const StyleMixins = {
       font-size: 1.8rem;
       font-weight: bold;
       color: ${fontColor};
-      box-shadow: 2px 2px 1px 1px black;
+      box-shadow: 2px 2px 1px 1px white;
       padding: 10px;
       border: 1px solid ${borderColor};
       border-radius: 2.5px;
@@ -46,12 +66,11 @@ const StyleMixins = {
       }
 
       &:active {
-        box-shadow: none;
+        filter: brightness(125%);
+        transition: all 125ms;
       }
     `
   }
-  
-  
 };
 
 export default StyleMixins;
