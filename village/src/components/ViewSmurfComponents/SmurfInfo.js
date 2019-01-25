@@ -8,7 +8,9 @@ import StyleMixins from "../../StyleMixins.js";
 import EditIcon from "./assets/edit-icon.png";
 
 const SmurfInfo = props => {
-  const selectedSmurf = props.smurfs.find(smurf => smurf.id === props.match.params.id)
+  const selectedSmurf = props.smurfs.find(
+    smurf => smurf.id === props.match.params.id
+  );
 
   const InfoArea = styled.section`
     position: relative;
@@ -33,7 +35,7 @@ const SmurfInfo = props => {
     max-width: 25px;
     font-size: 1.2rem;
     cursor: pointer;
-  `
+  `;
 
   const InfoAreaHeading = styled.h3`
     text-align: center;
@@ -66,7 +68,7 @@ const SmurfInfo = props => {
     }
   `;
 
-  return (
+  return selectedSmurf ? (
     <InfoArea>
       <InfoAreaUpdateIcon src={EditIcon} alt="Goto: edit mode" />
       <InfoAreaHeading>{selectedSmurf && selectedSmurf.name}</InfoAreaHeading>
@@ -89,7 +91,7 @@ const SmurfInfo = props => {
         </button>
       </FormButtons>
     </InfoArea>
-  );
+  ) : null;
 };
 
 SmurfInfo.propTypes = {
@@ -99,7 +101,7 @@ SmurfInfo.propTypes = {
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
       height: PropTypes.string.isRequired
-    }).isRequired,
+    }).isRequired
   ).isRequired,
   handleClick: PropTypes.func.isRequired
 };
