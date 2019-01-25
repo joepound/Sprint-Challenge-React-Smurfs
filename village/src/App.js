@@ -7,6 +7,7 @@ import { Reset, GlobalStyles } from "./GlobalStyles.js";
 import StyleVars from "./StyleVars.js";
 
 import Header from "./components/HeaderComponents/Header.js";
+import HomePage from "./components/HomePageComponents/HomePage.js";
 import AddSmurfForm from "./components/AddSmurfComponents/AddSmurfForm.js";
 import SmurfList from "./components/ViewSmurfComponents/SmurfList.js";
 
@@ -37,18 +38,11 @@ class App extends Component {
       );
   }
 
-  generateId() {
-    return `${Math.floor(Math.random() * 1000) +
-      String(Date.now()) +
-      Math.floor(Math.random() * 1000)}`;
-  }
-
   handleSubmit = e => {
     switch (e.currentTarget.name || e.currentTarget.id) {
       case "addSmurfForm":
         e.preventDefault();
         const postObject = {
-          id: this.generateId(),
           name: e.currentTarget[0].value,
           age: +e.currentTarget[1].value,
           height: e.currentTarget[2].value
@@ -79,7 +73,18 @@ class App extends Component {
     }
   };
 
-  handleChange = e => {};
+  handleChange = e => {
+    switch(e.currentTarget.name || e.currentTarget.id) {
+      case "smurfSelect" :
+        this.setState({
+          selectedSmurf: this.state.smurfs.find(
+            smurf => smurf.id === e.currentTarget.value
+          ) || ""
+        });
+        // history.push("/");
+
+    }
+  };
 
   render() {
     const AppBlock = styled.div`

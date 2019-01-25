@@ -21,17 +21,25 @@ let smurfs = [
     height: '8cm'
   }
 ];
+
+const generateId = () => {
+    return `${Math.floor(Math.random() * 1000) +
+    String(Date.now()) +
+    Math.floor(Math.random() * 1000)}`;
+};
+
 server.get('/smurfs', (req, res) => {
   res.json(smurfs);
 });
 let smurfId = 1;
 
 server.post('/smurfs', (req, res) => {
-  const { id, name, age, height } = req.body;
+  const { name, age, height } = req.body;
+  const id = generateId();
   const newSmurf = { id, name, age, height };
-  if (!id || !name || !age || !height) {
+  if (!name || !age || !height) {
     return sendUserError(
-      'Ya gone did smurfed! ID/Name/Age/Height are all required to create a smurf in the smurf DB.',
+      'Ya gone did smurfed! Name/Age/Height are all required to create a smurf in the smurf DB.',
       res
     );
   }
@@ -42,7 +50,7 @@ server.post('/smurfs', (req, res) => {
     );
   } else if (smurfs.find(smurf => smurf.id === id)) {
     return sendUserError(
-      `Ya gone did smurfed! The current ID already exists in the smurf DB.`,
+      `Ya gone did smurfed! ID processing goof detected.`,
       res
     );
   }

@@ -99,7 +99,7 @@ SmurfList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired
+      height: PropTypes.string.isRequired
     }),
     PropTypes.string
   ]).isRequired,
