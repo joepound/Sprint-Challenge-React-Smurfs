@@ -37,7 +37,47 @@ class App extends Component {
       );
   }
 
-  handleSubmit = e => {};
+  generateId() {
+    return `${Math.floor(Math.random() * 1000) +
+      String(Date.now()) +
+      Math.floor(Math.random() * 1000)}`;
+  }
+
+  handleSubmit = e => {
+    switch (e.currentTarget.name || e.currentTarget.id) {
+      case "addSmurfForm":
+        e.preventDefault();
+        const postObject = {
+          id: this.generateId(),
+          name: e.currentTarget[0].value,
+          age: +e.currentTarget[1].value,
+          height: e.currentTarget[2].value
+        };
+        console.log(postObject)
+        axios
+          .post("http://localhost:3333/smurfs", { ...postObject })
+          .then(res => {
+            this.setState(
+              {
+                message: res.statusText,
+                smurfs: res.data,
+                selectedSmurf: ""
+              },
+              () => {
+                console.log(res.data);
+                alert(`${postObject.name} has arrived in Smurf Village!`)
+              }
+            );
+          })
+          .catch(error => {
+            alert(error);
+            this.setState({
+              error
+            });
+          });
+        break;
+    }
+  };
 
   handleChange = e => {};
 
