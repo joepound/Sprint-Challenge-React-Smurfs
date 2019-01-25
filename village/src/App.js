@@ -1,25 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from "react";
+import { Route } from "react-router-dom";
+import axios from "axios";
 
-import './App.css';
-import SmurfForm from './components/SmurfForm';
-import Smurfs from './components/Smurfs';
+import styled from "styled-components";
+import { Reset, GlobalStyles } from "./GlobalStyles.js";
+import StyleVars from "./StyleVars.js";
+
+import Header from "./components/HeaderComponents/Header.js";
+import SmurfForm from "./components/SmurfForm";
+import Smurfs from "./components/Smurfs";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      smurfs: [],
-    };
-  }
+  state = {
+    smurfs: []
+  };
+
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
+    const AppBlock = styled.div`
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    `;
+
+    const DisplayArea = styled.main`
+      background-color: ${StyleVars.Colors.DisplayArea.bgColor};
+      padding: 25px;
+      margin: 20px auto;
+    `;
+
     return (
-      <div className="App">
-        <SmurfForm />
-        <Smurfs smurfs={this.state.smurfs} />
-      </div>
+      <Fragment>
+        <Reset />
+        <GlobalStyles />
+        <AppBlock>
+          <Header />
+          <SmurfForm />
+          <Smurfs smurfs={this.state.smurfs} />
+        </AppBlock>
+      </Fragment>
     );
   }
 }

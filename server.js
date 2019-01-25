@@ -15,7 +15,7 @@ const sendUserError = (msg, res) => {
 
 let smurfs = [
   {
-    id: 0,
+    id: "1561548436166032152",
     name: 'Brainey Smurf',
     age: 200,
     height: '8cm'
@@ -27,26 +27,27 @@ server.get('/smurfs', (req, res) => {
 let smurfId = 1;
 
 server.post('/smurfs', (req, res) => {
-  const { name, age, height } = req.body;
-  const newSmurf = { name, age, height, id: smurfId };
-  if (!name || !age || !height) {
+  const { id, name, age, height } = req.body;
+  const newSmurf = { id, name, age, height };
+  if (!id || !name || !age || !height) {
     return sendUserError(
-      'Ya gone did smurfed! Name/Age/Height are all required to create a smurf in the smurf DB.',
+      'Ya gone did smurfed! ID/Name/Age/Height are all required to create a smurf in the smurf DB.',
       res
     );
   }
-  const findSmurfByName = smurf => {
-    return smurf.name === name;
-  };
-  if (smurfs.find(findSmurfByName)) {
+  if (smurfs.find(smurf => smurf.name.toUpperCase() === name.toUpperCase())) {
     return sendUserError(
       `Ya gone did smurfed! ${name} already exists in the smurf DB.`,
+      res
+    );
+  } else if (smurfs.find(smurf => smurf.id === id)) {
+    return sendUserError(
+      `Ya gone did smurfed! The current ID already exists in the smurf DB.`,
       res
     );
   }
 
   smurfs.push(newSmurf);
-  smurfId++;
   res.json(smurfs);
 });
 
