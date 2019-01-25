@@ -37,6 +37,10 @@ const StyleVars = {
       Header: {
         bgColor: ColorNames.white,
         fontColor: ColorNames.smurfBlue
+      },
+      Selection: {
+        bgColor: ColorNames.white,
+        fontColor: ColorNames.smurfBlue
       }
     }
   }

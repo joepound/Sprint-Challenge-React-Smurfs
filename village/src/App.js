@@ -12,7 +12,8 @@ import SmurfList from "./components/ViewSmurfComponents/SmurfList.js";
 
 class App extends Component {
   state = {
-    smurfs: []
+    smurfs: [],
+    selectedSmurf: {}
   };
 
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -48,7 +49,13 @@ class App extends Component {
             />
             <Route
               path="/village"
-              render={props => <SmurfList handleChange={this.handleChange} />}
+              render={props => (
+                <SmurfList
+                  smurfs={this.state.smurfs}
+                  selectedSmurf={this.state.selectedSmurf}
+                  handleChange={this.handleChange}
+                />
+              )}
             />
           </DisplayArea>
         </AppBlock>

@@ -15,10 +15,16 @@ const SmurfList = props => {
     text-decoration-skip-ink: none;
     color: ${StyleVars.Colors.Village.Header.fontColor};
     padding: 7.5px 10px 5px 5px;
-    margin-bottom: 50px;
+    margin-bottom: 37.5px;
   `;
 
-  const FriendSelect = styled.div`
+  const SmurfSelect = styled.div`
+    display: inline-block;
+    background-color: ${StyleVars.Colors.Village.Selection.bgColor};
+    font-weight: bold;
+    color: ${StyleVars.Colors.Village.Selection.fontColor};
+    padding: 10px;
+
     label {
       font-size: 1.6rem;
     }
@@ -37,32 +43,41 @@ const SmurfList = props => {
   return (
     <Fragment>
       <Header>Welcome To Smurf Village!</Header>
-      {/* <FriendSelect>
-        {props.friends.length ? (
+      <SmurfSelect>
+        {props.smurfs.length ? (
           <Fragment>
-            <label htmlFor="friendSelect">Select a friend:</label>
-            <select id="friendSelect" onChange={props.handleChange} value={props.selectedFriend ? props.selectedFriend.id : ""}>
+            <label htmlFor="smurfSelect">Select a friend:</label>
+            <select id="smurfSelect" onChange={props.handleChange} value={props.selectedSmurf ? props.selectedSmurf.id : ""}>
               <option defaultValue hidden>
-                Select a friend:
+                Select a smurf:
               </option>
-              {props.friends.map(friend => (
-                <option key={friend.id} value={friend.id}>
-                  {friend.firstname} {friend.lastname}
-                </option>
-              ))}
             </select>
           </Fragment>
         ) : (
-          <label htmlFor="friendSelect">
-            You currently do not have any friends listed.
+          <label htmlFor="smurfSelect">
+            It looks like there are no smurfs in the village right now....
           </label>
         )}
-      </FriendSelect> */}
+      </SmurfSelect>
     </Fragment>
   );
 };
 
 SmurfList.propTypes = {
+  smurfs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired
+    }).isRequired
+  ).isRequired,
+  selectedSmurf: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
+  }).isRequired,
   handleChange: PropTypes.func.isRequired
 };
 
