@@ -85,7 +85,36 @@ class App extends Component {
     }
   };
 
-  handleClick = e => {};
+  handleClick = e => {
+    switch(e.currentTarget.name || e.currentTarget.id) {
+      case "deleteSmurf" :
+        const smurfDel = this.state.smurfs.find(smurf =>
+          smurf.id === e.currentTarget.dataset.smurf
+        );
+        axios
+          .delete(`http://localhost:3333/smurfs/${smurfDel.id}`)
+          .then(res => {
+            this.setState(
+              {
+                message: res.statusText,
+                smurfs: res.data,
+                selectedSmurf: ""
+              },
+              () => {
+                console.log(res.data);
+                alert(`${smurfDel.name} has gone on vacation.\nHe/She won't be in Smurf Village for a while....`);
+              }
+            );
+          })
+          .catch(error => {
+            alert(error);
+            this.setState({
+              error
+            });
+          });
+
+    }
+  };
 
   render() {
     const AppBlock = styled.div`

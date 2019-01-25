@@ -16,6 +16,8 @@ const SmurfInfo = props => {
 
     div {
       ${StyleMixins.makeFlex(null, null, "center")}
+      width: 87.5%;
+      margin: 0 auto;
     }
   `;
 
@@ -28,9 +30,26 @@ const SmurfInfo = props => {
   `;
 
   const InfoFieldHeading = styled.span`
-    width: 15%;
+    width: 20%;
     font-weight: bold;
     margin: 10px 0;
+  `;
+
+  const FormButtons = styled.div`
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+
+    button {
+      ${StyleMixins.FormInputs.makeFormButton(
+        StyleVars.Colors.Form.Button.bgColor,
+        StyleVars.Colors.Form.Button.fontColor,
+        StyleVars.Colors.Form.Button.borderColor
+      )}
+
+      display: block;
+      cursor: pointer;
+    }
   `;
 
   return (
@@ -41,11 +60,21 @@ const SmurfInfo = props => {
         <span>{props.selectedSmurf.age}</span>
       </div>
       <div>
-      <InfoFieldHeading>Height: </InfoFieldHeading>
+        <InfoFieldHeading>Height: </InfoFieldHeading>
         <span>{props.selectedSmurf.height} centimeters</span>
       </div>
+      <FormButtons>
+        <button
+          type="button"
+          name="deleteSmurf"
+          data-smurf={props.selectedSmurf.id}
+          onClick={props.handleClick}
+        >
+          Delete
+        </button>
+      </FormButtons>
     </InfoArea>
-  )
+  );
 };
 
 SmurfInfo.propTypes = {
