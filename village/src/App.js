@@ -47,7 +47,7 @@ class App extends Component {
           age: +e.currentTarget[1].value,
           height: e.currentTarget[2].value
         };
-        console.log(postObject)
+        console.log(postObject);
         axios
           .post("http://localhost:3333/smurfs", { ...postObject })
           .then(res => {
@@ -59,7 +59,7 @@ class App extends Component {
               },
               () => {
                 console.log(res.data);
-                alert(`${postObject.name} has arrived in Smurf Village!`)
+                alert(`${postObject.name} has arrived in Smurf Village!`);
               }
             );
           })
@@ -74,17 +74,18 @@ class App extends Component {
   };
 
   handleChange = e => {
-    switch(e.currentTarget.name || e.currentTarget.id) {
-      case "smurfSelect" :
+    switch (e.currentTarget.name || e.currentTarget.id) {
+      case "smurfSelect":
         this.setState({
-          selectedSmurf: this.state.smurfs.find(
-            smurf => smurf.id === e.currentTarget.value
-          ) || ""
+          selectedSmurf:
+            this.state.smurfs.find(
+              smurf => smurf.id === e.currentTarget.value
+            ) || ""
         });
-        // history.push("/");
-
     }
   };
+
+  handleClick = e => {};
 
   render() {
     const AppBlock = styled.div`
@@ -117,9 +118,11 @@ class App extends Component {
               path="/village"
               render={props => (
                 <SmurfList
+                  {...props}
                   smurfs={this.state.smurfs}
                   selectedSmurf={this.state.selectedSmurf}
                   handleChange={this.handleChange}
+                  handleClick={this.handleClick}
                 />
               )}
             />

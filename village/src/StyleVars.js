@@ -46,6 +46,15 @@ const StyleVars = {
         bgColor: ColorNames.white,
         fontColor: ColorNames.smurfBlue
       }
+    },
+    SmurfInfo: {
+      bgColor: ColorNames.white,
+      Heading: {
+        fontColor: ColorNames.smurfBlue
+      },
+      Body: {
+        fontColor: ColorNames.smurfBlue
+      }
     }
   }
 };

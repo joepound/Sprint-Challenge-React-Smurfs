@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
 
 import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
 import StyleMixins from "../../StyleMixins.js";
+
+import SmurfInfo from "./SmurfInfo.js";
 
 const SmurfList = props => {
   const VillageContainer = styled.section`
@@ -63,7 +66,7 @@ const SmurfList = props => {
             <SmurfSelectInput
               id="smurfSelect"
               value={props.selectedSmurf ? props.selectedSmurf.id : ""}
-              onChange={props.handleChange}
+              onChange={e => props.handleChange(e, props)}
             >
               <option defaultValue hidden>
                 Select a smurf
@@ -81,6 +84,13 @@ const SmurfList = props => {
           </label>
         )}
       </SmurfSelectArea>
+      {props.selectedSmurf && (
+        <SmurfInfo
+          {...props}
+          selectedSmurf={props.selectedSmurf}
+          handleClick={props.handleClick}
+        />
+      )}
     </VillageContainer>
   );
 };
@@ -103,7 +113,8 @@ SmurfList.propTypes = {
     }),
     PropTypes.string
   ]).isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired
 };
 
 export default SmurfList;
