@@ -80,7 +80,7 @@ const SmurfList = props => {
           </Fragment>
         ) : (
           <label htmlFor="smurfSelect">
-            It looks like there are no smurfs in the village right now....
+            It looks like there are no smurfs around right now....
           </label>
         )}
       </SmurfSelectArea>

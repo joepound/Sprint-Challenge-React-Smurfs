@@ -86,10 +86,10 @@ class App extends Component {
   };
 
   handleClick = e => {
-    switch(e.currentTarget.name || e.currentTarget.id) {
-      case "deleteSmurf" :
-        const smurfDel = this.state.smurfs.find(smurf =>
-          smurf.id === e.currentTarget.dataset.smurf
+    switch (e.currentTarget.name || e.currentTarget.id) {
+      case "deleteSmurf":
+        const smurfDel = this.state.smurfs.find(
+          smurf => smurf.id === e.currentTarget.dataset.smurf
         );
         axios
           .delete(`http://localhost:3333/smurfs/${smurfDel.id}`)
@@ -102,7 +102,11 @@ class App extends Component {
               },
               () => {
                 console.log(res.data);
-                alert(`${smurfDel.name} has gone on vacation.\nHe/She won't be in Smurf Village for a while....`);
+                alert(
+                  `${
+                    smurfDel.name
+                  } has gone on vacation.\nHe/She won't be in Smurf Village for a while....`
+                );
               }
             );
           })
@@ -112,7 +116,6 @@ class App extends Component {
               error
             });
           });
-
     }
   };
 
@@ -136,6 +139,7 @@ class App extends Component {
         <AppBlock>
           <Header />
           <DisplayArea>
+            <Route exact path="/" component={HomePage} />
             <Route
               exact
               path="/add"
