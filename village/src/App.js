@@ -13,12 +13,33 @@ import SmurfList from "./components/ViewSmurfComponents/SmurfList.js";
 class App extends Component {
   state = {
     smurfs: [],
-    selectedSmurf: {}
+    selectedSmurf: ""
   };
 
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
+  componentDidMount() {
+    axios
+      .get("http://localhost:3333/smurfs")
+      .then(res =>
+        this.setState(
+          {
+            smurfs: res.data
+          },
+          () => console.log(this.state.smurfs)
+        )
+      )
+      .catch(error =>
+        this.setState({
+          error
+        })
+      );
+  }
+
+  handleSubmit = e => {};
+
+  handleChange = e => {};
 
   render() {
     const AppBlock = styled.div`

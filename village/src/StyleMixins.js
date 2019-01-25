@@ -69,6 +69,20 @@ const StyleMixins = {
         filter: brightness(125%);
         transition: all 125ms;
       }
+    `,
+    makeSelectInput: (bgColor, fontColor) => `
+      background-color: ${bgColor};
+      font-weight: bold;
+      color: ${fontColor};
+
+      &::placeholder {
+        color: ${fontColor};
+      }
+
+      option {
+        font-weight: bold;
+        color: ${fontColor};
+      }
     `
   }
 };

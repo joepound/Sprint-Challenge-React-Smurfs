@@ -41,6 +41,10 @@ const StyleVars = {
       Selection: {
         bgColor: ColorNames.white,
         fontColor: ColorNames.smurfBlue
+      },
+      SelectInput: {
+        bgColor: ColorNames.white,
+        fontColor: ColorNames.smurfBlue
       }
     }
   }
