@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import axios from "axios";
 
@@ -12,16 +13,27 @@ import AddSmurfForm from "./components/AddSmurfComponents/AddSmurfForm.jsx";
 import SmurfList from "./components/ViewSmurfComponents/SmurfList.jsx";
 
 class App extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   state = {
     smurfs: [],
     selectedSmurf: "",
     isUpdating: false
   };
 
-  // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
-  // Notice what your map function is looping over and returning inside of Smurfs.
-  // You'll need to make sure you have the right properties on state and pass them down to props.
+  // Life cycle methods
+
   componentDidMount() {
+    this.getSmurfs();
+  }
+
+  // AJAX methods
+
+  getSmurfs() {
     axios
       .get("http://localhost:3333/smurfs")
       .then(res =>
@@ -38,6 +50,8 @@ class App extends Component {
         })
       );
   }
+
+  // Event handling methods
 
   handleSubmit = e => {
     switch (e.currentTarget.name || e.currentTarget.id) {
@@ -77,12 +91,15 @@ class App extends Component {
   handleChange = (e, props) => {
     switch (e.currentTarget.name || e.currentTarget.id) {
       case "smurfSelect":
-        this.setState({
-          selectedSmurf:
-            this.state.smurfs.find(
-              smurf => smurf.id === e.currentTarget.value
-            ) || ""
-        }, () => props.history.push(`/village/${this.state.selectedSmurf.id}`));
+        this.setState(
+          {
+            selectedSmurf:
+              this.state.smurfs.find(
+                smurf => smurf.id === e.currentTarget.value
+              ) || ""
+          },
+          () => props.history.push(`/village/${this.state.selectedSmurf.id}`)
+        );
     }
   };
 
@@ -117,8 +134,7 @@ class App extends Component {
               error
             });
           });
-      case "updateSmurf" :
-        
+      case "updateSmurf":
         break;
     }
   };
