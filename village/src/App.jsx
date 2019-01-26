@@ -3,8 +3,9 @@ import { Route } from "react-router-dom";
 import axios from "axios";
 
 import styled from "styled-components";
-import { Reset, GlobalStyles } from "./GlobalStyles.js";
 import StyleVars from "./StyleVars.js";
+import ResetStyles from "./ResetStyles.js";
+import GlobalStyles from "./GlobalStyles.js";
 
 import Header from "./components/HeaderComponents/Header.jsx";
 import HomePage from "./components/HomePageComponents/HomePage.jsx";
@@ -138,7 +139,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Reset />
+        <ResetStyles />
         <GlobalStyles />
         <AppBlock>
           <Header />
