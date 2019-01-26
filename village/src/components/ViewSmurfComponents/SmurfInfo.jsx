@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import styled from "styled-components";
-import StyleVars from "../../StyleVars.js";
-import StyleMixins from "../../StyleMixins.js";
+import {
+  SmurfInfoArea,
+  SmurfInfoUpdateIcon,
+  SmurfInfoHeading,
+  SmurfFieldName,
+  SmurfActionButton
+} from "./ViewSmurfStyles.js";
 
 import EditIcon from "./assets/edit-icon.png";
 
@@ -12,75 +16,19 @@ const SmurfInfo = props => {
     smurf => smurf.id === props.match.params.id
   );
 
-  const InfoArea = styled.section`
-    position: relative;
-    width: 87.5%;
-    background-color: ${StyleVars.Colors.SmurfInfo.bgColor};
-    font-size: 1.6rem;
-    color: ${StyleVars.Colors.SmurfInfo.Body.fontColor};
-    padding: 10px;
-    margin: 37.5px auto;
-
-    div {
-      ${StyleMixins.makeFlex(null, null, "center")}
-      width: 87.5%;
-      margin: 0 auto;
-    }
-  `;
-
-  const InfoAreaUpdateIcon = styled.img`
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    max-width: 25px;
-    font-size: 1.2rem;
-    cursor: pointer;
-  `;
-
-  const InfoAreaHeading = styled.h3`
-    text-align: center;
-    font-size: 2.25rem;
-    font-weight: bold;
-    color: ${StyleVars.Colors.SmurfInfo.Heading.fontColor};
-    margin-bottom: 30px;
-  `;
-
-  const InfoFieldHeading = styled.span`
-    width: 20%;
-    font-weight: bold;
-    margin: 10px 0;
-  `;
-
-  const FormButtons = styled.div`
-    display: block;
-    width: 100%;
-    margin-top: 50px;
-
-    button {
-      ${StyleMixins.FormInputs.makeFormButton(
-        StyleVars.Colors.Form.Button.bgColor,
-        StyleVars.Colors.Form.Button.fontColor,
-        StyleVars.Colors.Form.Button.borderColor
-      )}
-
-      display: block;
-      cursor: pointer;
-    }
-  `;
-
   return selectedSmurf ? (
-    <InfoArea>
-      <InfoAreaUpdateIcon src={EditIcon} alt="Goto: edit mode" />
-      <InfoAreaHeading>{selectedSmurf && selectedSmurf.name}</InfoAreaHeading>
+    <SmurfInfoArea>
+      <SmurfInfoUpdateIcon src={EditIcon} alt="Goto: edit mode" />
+      <SmurfInfoHeading>{selectedSmurf && selectedSmurf.name}</SmurfInfoHeading>
       <div>
-        <InfoFieldHeading>Age: </InfoFieldHeading>
+        <SmurfFieldName>Age: </SmurfFieldName>
         <span>{selectedSmurf && selectedSmurf.age}</span>
       </div>
       <div>
-        <InfoFieldHeading>Height: </InfoFieldHeading>
+        <SmurfFieldName>Height: </SmurfFieldName>
         <span>{selectedSmurf && selectedSmurf.height} centimeters</span>
       </div>
-      <FormButtons>
+      <SmurfActionButton>
         <button
           type="button"
           name="deleteSmurf"
@@ -89,8 +37,8 @@ const SmurfInfo = props => {
         >
           Delete
         </button>
-      </FormButtons>
-    </InfoArea>
+      </SmurfActionButton>
+    </SmurfInfoArea>
   ) : null;
 };
 

@@ -2,10 +2,9 @@ import React, { Component, Fragment } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
 
-import styled from "styled-components";
-import StyleVars from "./StyleVars.js";
 import ResetStyles from "./ResetStyles.js";
 import GlobalStyles from "./GlobalStyles.js";
+import { AppBlock, DisplayArea } from "./AppStyles.js";
 
 import Header from "./components/HeaderComponents/Header.jsx";
 import HomePage from "./components/HomePageComponents/HomePage.jsx";
@@ -125,18 +124,6 @@ class App extends Component {
   };
 
   render() {
-    const AppBlock = styled.div`
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-    `;
-
-    const DisplayArea = styled.main`
-      background-color: ${StyleVars.Colors.DisplayArea.bgColor};
-      padding: 25px;
-      margin: 20px auto;
-    `;
-
     return (
       <Fragment>
         <ResetStyles />
