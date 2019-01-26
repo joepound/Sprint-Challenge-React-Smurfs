@@ -5,7 +5,7 @@ import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
 import StyleMixins from "../../StyleMixins.js";
 
-import NavBar from "./NavBar.js";
+import NavBar from "./NavBar.jsx";
 
 const Header = props => {
   const Wrapper = styled.header`

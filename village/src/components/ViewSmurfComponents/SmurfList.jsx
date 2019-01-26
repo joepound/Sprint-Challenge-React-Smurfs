@@ -6,7 +6,7 @@ import styled from "styled-components";
 import StyleVars from "../../StyleVars.js";
 import StyleMixins from "../../StyleMixins.js";
 
-import SmurfInfo from "./SmurfInfo.js";
+import SmurfInfo from "./SmurfInfo.jsx";
 
 const SmurfList = props => {
   const routeProps = { ...props };

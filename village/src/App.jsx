@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { Reset, GlobalStyles } from "./GlobalStyles.js";
 import StyleVars from "./StyleVars.js";
 
-import Header from "./components/HeaderComponents/Header.js";
-import HomePage from "./components/HomePageComponents/HomePage.js";
-import AddSmurfForm from "./components/AddSmurfComponents/AddSmurfForm.js";
-import SmurfList from "./components/ViewSmurfComponents/SmurfList.js";
+import Header from "./components/HeaderComponents/Header.jsx";
+import HomePage from "./components/HomePageComponents/HomePage.jsx";
+import AddSmurfForm from "./components/AddSmurfComponents/AddSmurfForm.jsx";
+import SmurfList from "./components/ViewSmurfComponents/SmurfList.jsx";
 
 class App extends Component {
   state = {
