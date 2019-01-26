@@ -10,19 +10,20 @@ const AddSmurfForm = props => {
       <FormTextField>
         <label htmlFor="newName">Name:</label>
         <input
-          id="newName"
           type="text"
+          id="newName"
+          name="newName"
           placeholder="Enter the smurf's name"
           required
         />
       </FormTextField>
       <FormNumberField>
         <label htmlFor="newAge">Age:</label>
-        <input id="newAge" type="number" min="0" placeholder="Age" required />
+        <input type="number" id="newAge" name="newAge" min="0" placeholder="Age" required />
       </FormNumberField>
       <FormNumberField>
         <label htmlFor="newHeight">Height (in centimeters):</label>
-        <input id="newHeight" type="number" min="0" placeholder="cm." required />
+        <input type="number" id="newHeight" name="newAge" min="0" placeholder="cm." required />
       </FormNumberField>
       <FormButtons>
         <button type="submit">Submit</button>

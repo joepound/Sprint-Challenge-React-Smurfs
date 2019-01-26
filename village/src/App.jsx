@@ -162,6 +162,7 @@ class App extends Component {
                   {...props}
                   smurfs={this.state.smurfs}
                   selectedSmurf={this.state.selectedSmurf}
+                  handleSmurfSelect={this.state.handleSmurfSelect}
                   handleChange={this.handleChange}
                   handleClick={this.handleClick}
                   isUpdating={this.state.isUpdating}
