@@ -12,6 +12,8 @@ import HomePage from "./components/HomePageComponents/HomePage.jsx";
 import AddSmurfForm from "./components/AddSmurfComponents/AddSmurfForm.jsx";
 import SmurfList from "./components/ViewSmurfComponents/SmurfList.jsx";
 
+const baseURL = "http://localhost:3333";
+
 class App extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -22,7 +24,13 @@ class App extends Component {
   state = {
     smurfs: [],
     selectedSmurf: "",
-    isUpdating: false
+    newName: "",
+    newAge: "",
+    newHeight: "",
+    isUpdating: false,
+    changedName: "",
+    changedAge: "",
+    changedHeight: ""
   };
 
   // Life cycle methods
@@ -35,7 +43,7 @@ class App extends Component {
 
   getSmurfs() {
     axios
-      .get("http://localhost:3333/smurfs")
+      .get(`${baseURL}/smurfs`)
       .then(res =>
         this.setState(
           {
@@ -44,98 +52,185 @@ class App extends Component {
           () => console.log(this.state.smurfs)
         )
       )
-      .catch(error =>
+      .catch(error => {
         this.setState({
           error
-        })
-      );
+        });
+        console.log(error);
+        alert(error);
+      });
+  }
+
+  postSmurf() {
+    const newSmurf = {
+      name: this.state.newName,
+      age: Number(this.state.newAge),
+      height: Number(this.state.newHeight)
+    }
+
+    axios
+      .post(`${baseURL}/smurfs`, newSmurf)
+      .then(res => {
+        this.setState(
+          {
+            smurfs: res.data,
+            newName: "",
+            newAge: "",
+            newHeight: ""
+          },
+          () => {
+            console.log(res.data);
+            alert(`${newSmurf.name} has arrived in Smurf Village!`);
+          }
+        );
+      })
+      .catch(error => {
+        this.setState({
+          error
+        });
+        console.log(error);
+        alert(error);
+      });
+  }
+
+  deleteSmurf(smurfToDelete) {
+    axios
+      .delete(`${baseURL}/smurfs/${smurfToDelete.id}`)
+      .then(res => {
+        this.setState(
+          {
+            smurfs: res.data,
+            selectedSmurf: "",
+            isUpdating: false,
+            changedName: "",
+            changedAge: "",
+            changedHeight: ""
+          },
+          () => {
+            console.log(res.data);
+            alert(
+              `${
+                smurfToDelete.name
+              } has gone on vacation.\nHe/She won't be in Smurf Village for a while....`
+            );
+            this.props.history.push("/smurfs");
+          }
+        );
+      })
+      .catch(error => {
+        this.setState({
+          error
+        });
+        console.log(error);
+        alert(error);
+      });
+  }
+
+  putSmurf(smurfPutId) {
+    axios
+      .put(`${baseURL}/smurfs/${smurfPutId}`, {
+        name: this.state.changedName,
+        age: this.state.changedAge,
+        height: this.state.changedHeight
+      })
+      .then(res => {
+        this.setState(
+          {
+            smurfs: res.data,
+            isUpdating: false
+          },
+          () => {
+            console.log(res.data);
+            alert(
+              `${
+                res.data.name
+              } has successfully updated his/her village records.`
+            );
+          }
+        );
+      })
+      .catch(error => {
+        this.setState({
+          error
+        });
+        console.log(error);
+        alert(error);
+      });
+  }
+
+  // Data processing methods
+
+  validateInputs(name, age, height) {
+    if (isNaN(age) || Number(age) < 0) {
+      alert("Please enter a valid age value.");
+      return false;
+    }
+    if (isNaN(height) || Number(height) < 0) {
+      alert("Please enter a valid height value.");
+      return false;
+    }
+    return true;
   }
 
   // Event handling methods
 
   handleSubmit = e => {
-    switch (e.currentTarget.name || e.currentTarget.id) {
-      case "addSmurfForm":
-        e.preventDefault();
-        const postObject = {
-          name: e.currentTarget[0].value,
-          age: +e.currentTarget[1].value,
-          height: e.currentTarget[2].value
-        };
-        console.log(postObject);
-        axios
-          .post("http://localhost:3333/smurfs", { ...postObject })
-          .then(res => {
-            this.setState(
-              {
-                message: res.statusText,
-                smurfs: res.data,
-                selectedSmurf: ""
-              },
-              () => {
-                console.log(res.data);
-                alert(`${postObject.name} has arrived in Smurf Village!`);
-              }
-            );
-          })
-          .catch(error => {
-            alert(error);
-            this.setState({
-              error
-            });
-          });
-        break;
+    e.preventDefault();
+    if (
+      e.currentTarget.name === "addSmurfForm" &&
+      this.validateInputs(
+        this.state.newName,
+        this.state.newAge,
+        this.state.newHeight
+      )
+    ) {
+      this.postSmurf();
+    } else if (
+      e.currentTarget.name === "updateSmurfForm" &&
+      this.validateInputs(
+        this.state.changedName,
+        this.state.changedAge,
+        this.state.changedHeight
+      )
+    ) {
+      this.putSmurf();
     }
   };
 
-  handleChange = (e, props) => {
-    switch (e.currentTarget.name || e.currentTarget.id) {
-      case "smurfSelect":
-        this.setState(
-          {
-            selectedSmurf:
-              this.state.smurfs.find(
-                smurf => smurf.id === e.currentTarget.value
-              ) || ""
-          },
-          () => props.history.push(`/village/${this.state.selectedSmurf.id}`)
-        );
-    }
+  // e,target to directly target whatever input has changed inside a form
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  // e.currentTarget to target the element that this event handler method is bound to
+  handleSmurfSelect = e => {
+    this.setState(
+      {
+        selectedSmurf: this.state.smurfs.find(
+          smurf => smurf.id === e.currentTarget.value
+        )
+      },
+      () => this.props.history.push(`/smurfs/${this.state.selectedSmurf.id}`)
+    );
   };
 
+  // e.currentTarget to target the element that this event handler method is bound to
   handleClick = e => {
-    switch (e.currentTarget.name || e.currentTarget.id) {
-      case "deleteSmurf":
-        const smurfDel = this.state.smurfs.find(
-          smurf => smurf.id === e.currentTarget.dataset.smurf
-        );
-        axios
-          .delete(`http://localhost:3333/smurfs/${smurfDel.id}`)
-          .then(res => {
-            this.setState(
-              {
-                message: res.statusText,
-                smurfs: res.data,
-                selectedSmurf: ""
-              },
-              () => {
-                console.log(res.data);
-                alert(
-                  `${
-                    smurfDel.name
-                  } has gone on vacation.\nHe/She won't be in Smurf Village for a while....`
-                );
-              }
-            );
-          })
-          .catch(error => {
-            alert(error);
-            this.setState({
-              error
-            });
-          });
-      case "updateSmurf":
-        break;
+    if (e.currentTarget.name === "clearAddSmurfForm") {
+      this.setState({
+        newName: "",
+        newAge: "",
+        newHeight: ""
+      });
+    } else if (e.currentTarget.name === "deleteSmurf") {
+      const smurfToDelete = this.state.smurfs.find(
+        smurf => smurf.id === e.currentTarget.dataset.smurf
+      );
+      this.deleteSmurf(smurfToDelete);
+    } else if (e.currentTarget.name === "clearUpdateSmurfForm") {
+      this.setState({
+        changedName: "",
+        changedAge: "",
+        changedHeight: ""
+      });
     }
   };
 
@@ -152,20 +247,28 @@ class App extends Component {
               exact
               path="/add"
               render={props => (
-                <AddSmurfForm handleSubmit={this.handleSubmit} />
+                <AddSmurfForm
+                  newName={this.state.newName}
+                  newAge={this.state.newAge}
+                  newHeight={this.state.newHeight}
+                  handleChange={this.handleChange}
+                  handleClick={this.handleClick}
+                  handleSubmit={this.handleSubmit}
+                />
               )}
             />
             <Route
-              path="/village"
+              path="/smurfs"
               render={props => (
                 <SmurfList
                   {...props}
                   smurfs={this.state.smurfs}
                   selectedSmurf={this.state.selectedSmurf}
-                  handleSmurfSelect={this.state.handleSmurfSelect}
-                  handleChange={this.handleChange}
-                  handleClick={this.handleClick}
                   isUpdating={this.state.isUpdating}
+                  handleSmurfSelect={this.handleSmurfSelect}
+                  handleClick={this.handleClick}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
                 />
               )}
             />

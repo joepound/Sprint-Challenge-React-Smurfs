@@ -23,8 +23,9 @@ const SmurfList = props => {
             <label htmlFor="smurfSelect">Residents of Smurf Village:</label>
             <SmurfSelectInput
               id="smurfSelect"
+              name="smurfSelect"
               value={props.selectedSmurf ? props.selectedSmurf.id : ""}
-              onChange={e => props.handleChange(e, props)}
+              onChange={props.handleSmurfSelect}
             >
               <option defaultValue hidden>
                 Select a smurf
@@ -43,7 +44,7 @@ const SmurfList = props => {
         )}
       </SmurfSelectArea>
       <Route
-        path="/village/:id"
+        path="/smurfs/:id"
         render={props => (
           <SmurfInfo
             {...props}
@@ -62,7 +63,7 @@ SmurfList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
-      height: PropTypes.string.isRequired
+      height: PropTypes.number.isRequired
     }).isRequired
   ).isRequired,
   selectedSmurf: PropTypes.oneOfType([
@@ -70,11 +71,12 @@ SmurfList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
-      height: PropTypes.string.isRequired
+      height: PropTypes.number.isRequired
     }),
     PropTypes.string
   ]).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  handleSmurfSelect: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 };
 

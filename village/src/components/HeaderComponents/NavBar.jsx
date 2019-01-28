@@ -12,7 +12,7 @@ const NavBar = props => {
           </NavItem>
         </li>
         <li>
-          <NavItem exact to="/village">
+          <NavItem exact to="/smurfs">
             View Residents
           </NavItem>
         </li>

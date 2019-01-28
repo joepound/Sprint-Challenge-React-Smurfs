@@ -48,7 +48,7 @@ SmurfInfo.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
-      height: PropTypes.string.isRequired
+      height: PropTypes.number.isRequired
     }).isRequired
   ).isRequired,
   handleClick: PropTypes.func.isRequired
